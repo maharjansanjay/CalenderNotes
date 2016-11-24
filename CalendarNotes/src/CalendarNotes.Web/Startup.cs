@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using CalendarNotes.Web.Data;
 using CalendarNotes.Web.Models;
 using CalendarNotes.Web.Services;
 using CalendarNotes.Common.Models;
@@ -41,11 +40,11 @@ namespace CalendarNotes.Web
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<CalendarNoteContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<User, IdentityRole<int>>()
-                .AddEntityFrameworkStores<ApplicationDbContext,int>()
+                .AddEntityFrameworkStores<CalendarNoteContext, int>()
                 .AddDefaultTokenProviders();
 
             services.AddMvc();

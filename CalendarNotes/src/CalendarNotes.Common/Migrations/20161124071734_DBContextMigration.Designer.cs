@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using CalendarNotes.Web.Data;
+using CalendarNotes.Common.Models;
 
-namespace CalendarNotes.Web.Data.Migrations
+namespace CalendarNotes.Common.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161123071810_TableNamesChanges")]
-    partial class TableNamesChanges
+    [DbContext(typeof(CalendarNoteContext))]
+    [Migration("20161124071734_DBContextMigration")]
+    partial class DBContextMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -17,10 +17,11 @@ namespace CalendarNotes.Web.Data.Migrations
                 .HasAnnotation("ProductVersion", "1.0.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("CalendarNotes.Web.Models.User", b =>
+            modelBuilder.Entity("CalendarNotes.Common.Models.User", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("UserId");
 
                     b.Property<int>("AccessFailedCount");
 
@@ -31,6 +32,10 @@ namespace CalendarNotes.Web.Data.Migrations
                         .HasAnnotation("MaxLength", 256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -67,10 +72,30 @@ namespace CalendarNotes.Web.Data.Migrations
                     b.ToTable("User");
                 });
 
+            modelBuilder.Entity("CalendarNotes.Common.Models.UserNote", b =>
+                {
+                    b.Property<int>("UserNoteId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<string>("Note")
+                        .IsRequired();
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("UserNoteId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserNote");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole<int>", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("RoleId");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -92,7 +117,8 @@ namespace CalendarNotes.Web.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<int>", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("RoleClaimId");
 
                     b.Property<string>("ClaimType");
 
@@ -110,7 +136,8 @@ namespace CalendarNotes.Web.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<int>", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("UserClaimId");
 
                     b.Property<string>("ClaimType");
 
@@ -172,6 +199,14 @@ namespace CalendarNotes.Web.Data.Migrations
                     b.ToTable("UserToken");
                 });
 
+            modelBuilder.Entity("CalendarNotes.Common.Models.UserNote", b =>
+                {
+                    b.HasOne("CalendarNotes.Common.Models.User", "User")
+                        .WithMany("UserNotes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole<int>")
@@ -182,7 +217,7 @@ namespace CalendarNotes.Web.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<int>", b =>
                 {
-                    b.HasOne("CalendarNotes.Web.Models.User")
+                    b.HasOne("CalendarNotes.Common.Models.User")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -190,7 +225,7 @@ namespace CalendarNotes.Web.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<int>", b =>
                 {
-                    b.HasOne("CalendarNotes.Web.Models.User")
+                    b.HasOne("CalendarNotes.Common.Models.User")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -203,7 +238,7 @@ namespace CalendarNotes.Web.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("CalendarNotes.Web.Models.User")
+                    b.HasOne("CalendarNotes.Common.Models.User")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

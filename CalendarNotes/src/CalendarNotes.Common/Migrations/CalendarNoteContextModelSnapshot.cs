@@ -3,15 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using CalendarNotes.Web.Data;
+using CalendarNotes.Common.Models;
 
-namespace CalendarNotes.Web.Data.Migrations
+namespace CalendarNotes.Common.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161124065614_UserNoteTableAdded")]
-    partial class UserNoteTableAdded
+    [DbContext(typeof(CalendarNoteContext))]
+    partial class CalendarNoteContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
