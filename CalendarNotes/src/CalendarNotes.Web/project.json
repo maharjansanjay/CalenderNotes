@@ -43,7 +43,9 @@
     "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": {
       "version": "1.0.0-preview2-final",
       "type": "build"
-    }
+    },
+    "CalendarNotes.Common": "1.0.0-*",
+    "CalendarNotes.Core": "1.0.0-*"
   },
 
   "tools": {

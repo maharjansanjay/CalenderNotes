@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using CalendarNotes.Web.Models;
 using CalendarNotes.Web.Models.AccountViewModels;
 using CalendarNotes.Web.Services;
+using CalendarNotes.Common.Models;
 
 namespace CalendarNotes.Web.Controllers
 {

@@ -1,28 +1,23 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using CalendarNotes.Web.Models;
-using CalendarNotes.Common.Models;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CalendarNotes.Web.Data
+namespace CalendarNotes.Common.Models
 {
-    public class ApplicationDbContext : IdentityDbContext<User,IdentityRole<int>,int>
-    {       
-        public DbSet<UserNote> UserNote { get; set; }
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    public class CalendarNoteContext : IdentityDbContext<User, IdentityRole<int>, int>
+    {
+        public CalendarNoteContext(DbContextOptions<CalendarNoteContext> options)
             : base(options)
         {
-            
-        }
 
+        }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<User>().ToTable("User").Property(x=>x.Id).HasColumnName("UserId");
+            builder.Entity<User>().ToTable("User").Property(x => x.Id).HasColumnName("UserId");
             builder.Entity<IdentityRole<int>>().ToTable("Role").Property(x => x.Id).HasColumnName("RoleId");
             builder.Entity<IdentityUserClaim<int>>().ToTable("UserClaim").Property(x => x.Id).HasColumnName("UserClaimId");
             builder.Entity<IdentityRoleClaim<int>>().ToTable("RoleClaim").Property(x => x.Id).HasColumnName("RoleClaimId");
