@@ -1,4 +1,4 @@
-﻿{
+{
   "userSecretsId": "aspnet-CalendarNotes.Web-a0856685-aa53-4802-bc51-d51f8e444fd3",
 
   "dependencies": {
@@ -45,8 +45,7 @@
       "type": "build"
     },
     "CalendarNotes.Common": "1.0.0-*",
-    "CalendarNotes.Core": "1.0.0-*"
-  },
+    "CalendarNotes.Core": "1.0.0-*"  },
 
   "tools": {
     "BundlerMinifier.Core": "2.0.238",

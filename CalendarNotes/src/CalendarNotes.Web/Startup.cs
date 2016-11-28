@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using CalendarNotes.Web.Models;
 using CalendarNotes.Web.Services;
 using CalendarNotes.Common.Models;
+using CalendarNotes.Core.Repos;
+using CalendarNotes.Core.Services;
 
 namespace CalendarNotes.Web
 {
@@ -49,7 +51,13 @@ namespace CalendarNotes.Web
 
             services.AddMvc();
 
+
             // Add application services.
+            services.AddScoped<IGenericRepo<UserNote>, GenericRepo<UserNote>>();
+            services.AddScoped<IGenericRepo<User>, GenericRepo<User>>();
+            services.AddScoped<IUserNoteService, UserNoteService>();
+            services.AddScoped<IUserService, UserService>();
+
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
         }

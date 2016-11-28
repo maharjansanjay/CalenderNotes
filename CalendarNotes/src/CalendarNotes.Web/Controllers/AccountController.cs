@@ -12,6 +12,8 @@ using CalendarNotes.Web.Models;
 using CalendarNotes.Web.Models.AccountViewModels;
 using CalendarNotes.Web.Services;
 using CalendarNotes.Common.Models;
+using CalendarNotes.Core.Services;
+using CalendarNotes.Web.ExtentionMethod;
 
 namespace CalendarNotes.Web.Controllers
 {
@@ -23,19 +25,22 @@ namespace CalendarNotes.Web.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
+        private IUserService _userService;
 
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
-            _logger = loggerFactory.CreateLogger<AccountController>();
+            _userService = userService;
+            _logger = loggerFactory.CreateLogger<AccountController>();            
         }
 
         //
