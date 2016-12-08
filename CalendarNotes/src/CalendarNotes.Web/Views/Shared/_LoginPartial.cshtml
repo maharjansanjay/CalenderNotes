@@ -1,16 +1,18 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using CalendarNotes.Web.Models
-@using CalendarNotes.Common.Models
+﻿@using CalendarNotes.Common.Models
 
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {
+    string fullname;
+    var currentUser = await UserManager.GetUserAsync(User);
+    fullname = currentUser.FirstName + " " + currentUser.LastName;
+
     <form asp-area="" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @ViewBag.UserName!</a>
+                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @fullname!</a>
             </li>
             <li>
                 <button type="submit" class="btn btn-link navbar-btn navbar-link">Log off</button>

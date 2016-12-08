@@ -81,6 +81,8 @@ namespace CalendarNotes.Common.Migrations
                     b.Property<string>("Note")
                         .IsRequired();
 
+                    b.Property<TimeSpan>("Time");
+
                     b.Property<int>("UserId");
 
                     b.HasKey("UserNoteId");

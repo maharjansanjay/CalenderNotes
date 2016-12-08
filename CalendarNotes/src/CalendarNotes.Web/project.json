@@ -45,7 +45,7 @@
       "type": "build"
     },
     "CalendarNotes.Common": "1.0.0-*",
-    "CalendarNotes.Core": "1.0.0-*"  },
+    "CalendarNotes.Core": "1.0.0-*" },
 
   "tools": {
     "BundlerMinifier.Core": "2.0.238",

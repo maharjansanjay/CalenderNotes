@@ -1,10 +1,6 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Security.Claims;
 using System.Security.Principal;
-using System.Threading.Tasks;
 
 namespace CalendarNotes.Web.ExtentionMethod
 {
@@ -22,12 +18,6 @@ namespace CalendarNotes.Web.ExtentionMethod
         {
             var claim = ((ClaimsIdentity)identity).FindFirst(ClaimTypes.NameIdentifier);
             return claim == null ? (int?)null : Convert.ToInt32(claim.Value);
-        }
-        public static string GetUserFullName(this IIdentity identity)
-        {
-            var claim = ((ClaimsIdentity)identity).FindFirst("FullName");
-            // Test for null to avoid issues during local testing
-            return (claim != null) ? claim.Value : string.Empty;
         }
     }
 }

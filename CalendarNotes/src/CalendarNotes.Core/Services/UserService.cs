@@ -1,9 +1,5 @@
 ﻿using CalendarNotes.Common.Models;
 using CalendarNotes.Core.Repos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CalendarNotes.Core.Services
 {
@@ -14,7 +10,7 @@ namespace CalendarNotes.Core.Services
     }
     public class UserService : IUserService
     {
-        private IGenericRepo<User> _userRepo;
+        private readonly IGenericRepo<User> _userRepo;
         public UserService(IGenericRepo<User> userRepo)
         {
             _userRepo = userRepo;

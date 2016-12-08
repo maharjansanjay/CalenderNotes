@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CalendarNotes.Common.Models
 {
@@ -16,6 +13,8 @@ namespace CalendarNotes.Common.Models
         public string Note { get; set; }
         [Required]
         public DateTime Date { get; set; }
+        [Required]
+        public TimeSpan Time { get; set; }
 
         //Navigation Properties
         public int UserId { get; set; }

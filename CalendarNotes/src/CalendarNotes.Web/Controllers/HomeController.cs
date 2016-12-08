@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using CalendarNotes.Common.Models;
 using CalendarNotes.Web.ExtentionMethod;
 using CalendarNotes.Core.Services;
-using Microsoft.AspNetCore.Identity;
 
 namespace CalendarNotes.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private IUserNoteService _userNoteService;
-        private IUserService _userService;
-        public HomeController(IUserNoteService userNoteService,IUserService userService)
+        private readonly IUserNoteService _userNoteService;
+        public HomeController(IUserNoteService userNoteService)
         {
             _userNoteService = userNoteService;
-            _userService = userService;          
         }
         public IActionResult Index()
         {
@@ -25,8 +19,6 @@ namespace CalendarNotes.Web.Controllers
             List<UserNote> userNotes = new List<UserNote>();
             if (userId.HasValue)
             {
-                //ViewBag.UserName = _userService.GetFullUserName(userId.Value);
-                ViewBag.UserName = User.Identity.GetUserFullName();
                 userNotes = _userNoteService.GetuserNotes(userId.Value);
             }            
             return View(userNotes);
